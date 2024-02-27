@@ -431,14 +431,17 @@ extension NextLevelSessionExporter {
                 return false
             }
             
-            var handled = false
-            var error = false
-            if self._videoOutput == output {
-                // determine progress
+            // determine progress
+            // use video output if present, otherwise use audio
+            if (self._videoOutput == output) || (self._videoOutput == nil && self._audioOutput == output) {
                 self._lastSamplePresentationTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer) - self.timeRange.start
                 let progress = self._duration == 0 ? 1 : Float(CMTimeGetSeconds(self._lastSamplePresentationTime) / self._duration)
                 self.updateProgress(progress: progress)
-                
+            }
+            
+            var handled = false
+            var error = false
+            if self._videoOutput == output {
                 // prepare progress frames
                 if let pixelBufferAdaptor = self._pixelBufferAdaptor,
                     let pixelBufferPool = pixelBufferAdaptor.pixelBufferPool,
