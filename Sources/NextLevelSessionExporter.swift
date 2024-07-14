@@ -155,7 +155,7 @@ open class NextLevelSessionExporter: NSObject {
     }
     
     public override init() {
-        self._inputQueue = DispatchQueue(label: InputQueueLabel, autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInitiated))
+        self._inputQueue = DispatchQueue(label: InputQueueLabel, autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .background))
         self.timeRange = CMTimeRange(start: CMTime.zero, end: CMTime.positiveInfinity)
         super.init()
     }
@@ -299,7 +299,7 @@ extension NextLevelSessionExporter {
             })
         } 
         
-        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
+        dispatchGroup.notify(queue: .global(qos: .background)) {
             DispatchQueue.main.async {
                 self.finish()
             }
