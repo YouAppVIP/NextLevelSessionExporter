@@ -155,7 +155,7 @@ open class NextLevelSessionExporter: NSObject {
     }
     
     public override init() {
-        self._inputQueue = DispatchQueue(label: InputQueueLabel, qos: .userInitiated, autoreleaseFrequency: .workItem)
+        self._inputQueue = DispatchQueue(label: InputQueueLabel, qos: .background, autoreleaseFrequency: .workItem)
         self.timeRange = CMTimeRange(start: CMTime.zero, end: CMTime.positiveInfinity)
         super.init()
     }
