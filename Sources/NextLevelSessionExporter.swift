@@ -299,7 +299,7 @@ extension NextLevelSessionExporter {
             })
         } 
         
-        dispatchGroup.notify(queue: .global()) {
+        dispatchGroup.notify(queue: .global(qos: .background)) {
             DispatchQueue.main.async {
                 self.finish()
             }
